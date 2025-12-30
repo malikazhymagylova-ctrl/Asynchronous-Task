@@ -1,13 +1,29 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println(String.format("Hello and welcome!"));
+import java.time.Year;
+import java.util.ArrayList;
 
-    for (int i = 1; i <= 10; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
+public class Main {
+    public static void main(String[] args) {
+
+        ArrayList<ContentItem> items = new ArrayList<>();
+
+        items.add(new VideoLecture("Java OOP", 2024, 90, "HD"));
+        items.add(new VideoLecture("Data Structures", 2022, 120, "4K"));
+        items.add(new PodcastEpisode("Tech Talk", 2023, 45, "Alice"));
+        items.add(new PodcastEpisode("History Hour", 2020, 60, "Bob"));
+
+        int currentYear = Year.now().getValue();
+
+        for (ContentItem item : items) {
+            System.out.println(item +
+                    " | licenseCost=" + item.getLicenseCost(currentYear));
+
+            if (item instanceof Downloadable d) {
+                d.download();
+                System.out.println("Max downloads/day: " +
+                        d.getMaxDownloadsPerDay());
+            }
+
+            System.out.println();
+        }
     }
 }
